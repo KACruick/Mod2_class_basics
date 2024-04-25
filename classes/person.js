@@ -2,26 +2,22 @@
 
 class Person{
   constructor(firstName, lastName, age) {
-    this.firstName = firstName
-    this.lastName = lastName
-    this.age = age
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
   }
   introduce() {
     console.log(`Hi, I'm ${this.firstName} ${this.lastName}, and I'm ${this.age} years old.`)
   }
-  static introducePeople(array){
-    if(!Array.isArray(array)) {
-      return "introducePeople only takes an array as an argument."
-    }
-    for (let i = 0; i < array.length; i++) {
-      let person = array[i];
-      if(person instanceof Person) {  //if any of the items in the array are not instances of the `Person` class.
-        return "All items in array must be Person class instances."
-      }
-      else {
-        introduce(person);
-      }
-    }
+  static introducePeople(people){
+    if (!Array.isArray(people)) throw new Error("introducePeople only takes an array as an argument.")
+    
+    const isArrayOfPersons = people.every(person => person instanceof Person)
+    if (!isArrayOfPersons) throw new Error("All items in array must be Person class instances.")
+    
+    people.forEach(person => {
+      person.introduce()
+    })
 
   }
 }
